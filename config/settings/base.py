@@ -49,12 +49,14 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'rest_framework'
 ]
 
 # Apps specific for this project go here.
 LOCAL_APPS = [
     # custom users app
     'zend_delivery.users.apps.UsersConfig',
+    'api',
     # Your stuff: custom apps go here
 ]
 
@@ -273,4 +275,5 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
-print(READ_DOT_ENV_FILE)
+
+GETSWIFT_API_KEY = env('GETSWIFT_API_KEY')
