@@ -1,3 +1,26 @@
 from django.shortcuts import render
+from django.conf import settings
 
-# Create your views here.
+import requests
+
+
+from .forms import DeliveryBookingForm
+from .serializer import DeliveryBookingSerializer
+
+
+def save_embed(request):
+
+    if request.method == "POST":
+        form = SubmitEmbed(request.POST)
+        if form.is_valid():
+            url = form.cleaned_data['url']
+            r = requests.get('http://api.embed.ly/1/oembed?key=' + settings.EMBEDLY_KEY + '&url=' + url)
+            json = r.json()
+            serializer = EmbedSerializer(data=json)
+            if serializer.is_valid():
+                embed = serializer.save()
+                return render(request, 'embeds.html', {'embed': embed})
+    else:
+        form = SubmitEmbed()
+
+    return render(request, 'index.html', {'form': form})
