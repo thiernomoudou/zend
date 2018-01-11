@@ -4,4 +4,5 @@ from .models import DeliveryBookingModel
 
 class DeliveryBookingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DeliveryBookingSerializer
+        model = DeliveryBookingModel
+        fields='__all__'
