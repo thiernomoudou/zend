@@ -51,7 +51,7 @@ class DeliveryBookingModel(models.Model):
     items = models.ForeignKey(DeliveryBookingItemModel, on_delete=models.CASCADE, null=True, blank=True)
     pickupTime = models.DateField(null=True, blank=True);
     pickupDetail = models.ForeignKey(DeliveryBookingLocationModel, on_delete=models.CASCADE, related_name='pickup_detail')
-    dropoffWindow = models.ForeignKey(TimeFrameModel, on_delete=models.CASCADE)
+    dropoffWindow = models.ForeignKey(TimeFrameModel, on_delete=models.CASCADE, blank=True, null=True)
     dropoffDetail = models.ForeignKey(DeliveryBookingLocationModel, on_delete=models.CASCADE, related_name='dropoff_detail')
     customerFee = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     customerReference = models.CharField(max_length=50, null=True, blank=True)
@@ -59,7 +59,10 @@ class DeliveryBookingModel(models.Model):
     taxInclusivePrice = models.NullBooleanField()
     tip = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
     driverFeePercentage = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
-    driverMatchCode = models.CharField(max_length=200)
-    deliverySequence = models.IntegerField()
+    driverMatchCode = models.CharField(max_length=200, blank=True, null=True)
+    deliverySequence = models.IntegerField(blank=True, null=True)
     webhooks = models.ForeignKey(DeliveryEventWebhookModel, on_delete=models.CASCADE, null=True, blank=True)
-    template = models.CharField(max_length=4000)
+    template = models.CharField(max_length=4000, blank=True, null=True)
+
+    def __str__(self):
+        return (self.pickupDetail)

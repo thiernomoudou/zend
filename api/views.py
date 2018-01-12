@@ -41,17 +41,20 @@ def save_delivery_order(request):
             headers={'content-type': 'application/json'}
             url = 'https://app.getswift.co/api/v2/deliveries'
             r = requests.post(url, headers=headers, data=json.dumps(post_data))
-            print(r)
-            # print(r.text)
-            # return HttpResponse(r.status_code)
             json_data = r.json()
-            serializer = DeliveryBookingSerializer(data=json_data)
-            print (serializer)
-            if serializer.is_valid():
-                info = serializer.save()
-                return render(request, 'info.html', {'info': info})
-            else:
-                return HttpResponse("Serializer not valid")
+            print(json_data)
+            return render(request, 'info.html', {'info': json_data})
+
+
+            # serializer = DeliveryBookingSerializer(data=json_data)
+            # print (serializer.is_valid)
+            # if serializer.is_valid():
+            #     print(serializer.validated_data)
+            #     info = serializer.save()
+            #     return render(request, 'info.html', {'info': info})
+            # else:
+            #     print(serializer.errors)
+            #     return HttpResponse("Serializer not valid")
     else:
         form = DeliveryBookingForm()
 
